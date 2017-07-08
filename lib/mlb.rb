@@ -6,5 +6,5 @@ require 'openssl'
 
 
 require_relative "./mlb/version"
-require_relative './mlb/pitcher'
+require_relative './mlb/game'
 require_relative './mlb/cli'

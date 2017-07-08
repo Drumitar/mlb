@@ -4,41 +4,46 @@
 class Mlb::CLI 
 
 	def call 
-		puts "Today's pitchers."
-		list_pitchers
+		puts "Today's final scores."
+		list_games
 		menu 
 		goodbye
 	end 
 
-	def list_pitchers
-		@pitchers = Mlb::Pitcher.today 
-		@pitchers.each.with_index(1) do |pitcher, i|
-			puts "#{i}. #{pitcher.name} - #{pitcher.team} - #{pitcher.era}"
+	def list_games
+		@games = Mlb::Game.today 
+		@games.each.with_index(1) do |game, i|
+			puts "#{i}. #{game.winner}:#{game.score_w} #{game.loser}:#{game.score_l}"
 		end 
 
 	end 
 
 	def menu 
-		puts "\n find the best pitching match up or type exit to leave \n \n"
+		puts "\n find more information about a game\n \n"
 		input = ""
 		while input != "exit"
 			input = gets.strip.downcase
 			case input 
 			when "1"
-				puts @pitchers[0]
+				print_more_info("1")
 			when "2"
-				puts "more info on 2nd menu item"
+				print_more_info("2")
 			when "list"
-				list_pitchers 
+				list_games
 			else 
-				puts "not sure what you want, type list or exit!"	
+				puts ("[[".red + "not sure what you want, please type list or exit".white + "]]".red)			
 			end 
-			
 		end 
 	end 
 
+	def print_more_info(input)
+		input = input.to_i-1
+		puts "winning pitcher:#{@games[input].pitcher_w} losing pitcher:#{@games[input].pitcher_l} #{@games[input].save}" 
+	end 
+
+
 	def goodbye
-		puts "later"
+		puts "goodbye!".yellow 
 	end 
 
 end 

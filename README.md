@@ -22,7 +22,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+select a menu option by entering in 1,2 or 3 
+	if 1 is selected, enter in a game number to see winning and loser pitchers and if their was a save
+	if 2 is selected, the standings will print out and return you to menu 
+	if 3 is selected the program will print out the biggest run differential from the game. 
 
 ## Development
 
@@ -32,4 +35,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/mlb.
+Bug reports and pull requests are welcome on GitHub at https://github.com/drumitar/mlb.

@@ -58,10 +58,24 @@ class Mlb::Game
 		scores  = [] 
 		games = self.scrape_games 
 		games.each do | game | 
-		 	scores << (game.score_w.to_i - game.score_l.to_i)
+		 	scores << (game.score_w.to_i - game.score_l.to_i) 
 		end 
 		puts "the biggest margin of victory today was #{scores.max} runs!".green 	
 	end
+
+	def self.find_big_win
+		games = self.scrape_games 
+		score = 0 
+		game_object = nil 
+		games.each do |game| 
+			if score < (game.score_w.to_i - game.score_l.to_i)
+				score = (game.score_w.to_i - game.score_l.to_i)
+				game_object = game
+			end 
+		end 
+		puts "the biggest margin of victory today was #{score} runs !".yellow + "\nfrom the game #{game_object.winner}: #{game_object.score_w} #{game_object.loser}: #{game_object.score_l}"
+
+	end 
 
 
 	end 

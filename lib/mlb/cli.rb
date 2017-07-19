@@ -40,7 +40,8 @@ class Mlb::CLI
 			Mlb::Game.scrape_standings
 			menu 
 		elsif input.to_i == 3 
-			Mlb::Game.find_lopside_score
+			#Mlb::Game.find_lopside_score
+			Mlb::Game.find_big_win
 			menu 
 		elsif input.downcase == "exit"
 			goodbye	

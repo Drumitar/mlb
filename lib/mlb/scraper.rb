@@ -26,5 +26,32 @@ class Mlb::Scraper
 		end 
 	end 
 
+	def self.scrape_standings
+		puts "\n AL STANDINGS"
+		puts "\n TM  W  L  WIN%  GB"
+		@@doc.css("#standings-upto-AL-overall tr").each do |row|
+		 	title = row.css("tr:nth-child(1)").text
+		 	team = row.css("th a").text
+		 	wins = row.css("td:nth-child(2)").text.green 
+		 	losses = row.css("td:nth-child(3)").text.red
+		 	win_percentage = row.css("td:nth-child(4)").text.cyan
+		 	games_back = row.css("td:nth-child(5)").text.yellow 
+	 	puts " #{team} #{wins} #{losses} #{win_percentage} #{games_back}"
+		end 
+
+		puts "\n NL STANDINGS"
+		puts "\n TM  W  L  WIN%  GB"
+		@@doc.css("#standings-upto-NL-overall tr").each do |row|
+		 	team = row.css("th a").text
+		 	wins = row.css("td:nth-child(2)").text.green 
+		 	losses = row.css("td:nth-child(3)").text.red
+		 	win_percentage = row.css("td:nth-child(4)").text.cyan
+		 	games_back = row.css("td:nth-child(5)").text.yellow 
+		 	puts " #{team} #{wins} #{losses} #{win_percentage} #{games_back}"
+		 end 
+	end 
+
+
+
 
 end 

@@ -44,7 +44,7 @@ class Mlb::CLI
 				menu 
 			end 
 		elsif input.to_i == 2 
-			Mlb::Game.scrape_standings
+			Mlb::Scraper.scrape_standings
 			menu 
 		elsif input.to_i == 3 
 			#Mlb::Game.find_lopside_score

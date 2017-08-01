@@ -1,37 +1,23 @@
 # coding: utf-8
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "mlb/version"
+require_relative './lib/mlb/version'
 
-Gem::Specification.new do |spec|
-  spec.name          = "mlb-scores-standings"
-  spec.version       = Mlb::VERSION
-  spec.authors       = ["Drumitar"]
-  spec.email         = ["derekpelt@gmail.com"]
+Gem::Specification.new do |s|
+  s.name        = 'mlb-scores-standings'
+  s.version     = Mlb::VERSION
+  s.date        = '2017-08-01'
+  s.summary     = "mlb scores and standings"
+  s.description = "mlb scores and standings"
+  s.authors     = ["Derek Pelt"]
+  s.email       = 'derekpelt@gmail.com'
+  s.files       = ["lib/mlb/cli.rb", "lib/mlb/game.rb", "lib/mlb/scraper.rb", "lib/mlb/version.rb", "lib/mlb.rb"]
+  s.homepage    = 'http://rubygems.org/gems/mlb-scores-standings'
+  s.license     = 'MIT'
+  s.executables << 'mlb-scores-standings'
 
-  spec.description   = %q{Write a longer description or delete this line.}
-  spec.summary       = spec.description
-  spec.homepage      = ""
-
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  #if spec.respond_to?(:metadata)
-   # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-  #else
-   # raise "RubyGems 2.0 or newer is required to protect against " \
-    #  "public gem pushes."
-  #end
-
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
-  spec.bindir        = "exe"
-  spec.executables   = ["mlb-scores-standings"]
-  spec.require_paths = ["lib"]
-
-  spec.add_development_dependency "bundler", "~> 1.15"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "pry", ">= 0"
-  spec.add_development_dependency "nokogiri", ">= 0"
-  spec.add_development_dependency "colorize", ">=0"
-
+  s.add_development_dependency "bundler", "~> 1.10"
+  s.add_development_dependency "rake", "~> 10.0"
+  s.add_development_dependency "rspec", ">= 0"
+  s.add_development_dependency "nokogiri", ">= 0"
+  s.add_development_dependency "pry", ">= 0"
+  s.add_development_dependency "colorize", '~> 0'
 end

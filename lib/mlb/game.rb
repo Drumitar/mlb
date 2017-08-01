@@ -4,34 +4,18 @@ class Mlb::Game
 
 	attr_accessor :winner, :loser, :score_w, :score_l, :pitcher_w, :pitcher_l, :save
 
-	@doc = Nokogiri::HTML(open("http://www.baseball-reference.com/boxes/"))
+	@@doc = Nokogiri::HTML(open("http://www.baseball-reference.com/boxes/"))
 
-	def self.scrape_games
-		games = [] 
+	@@games = [] 
 
-		the_game = nil 
-		
-		@doc.css(".game_summary").each do |game|
-			the_game = self.new 
-		 	the_game.winner = game.css(".winner td[1]").text.green
-		 	the_game.loser = game.css(".loser td[1]").text.red
-		 	the_game.score_w = game.css(".winner td[2]").text
-			the_game.score_l = game.css(".loser td[2]").text
-			the_game.pitcher_w = game.css("table:nth-child(2) tr:nth-child(1) td:nth-child(2)").text.light_green
-			the_game.pitcher_l = game.css("table:nth-child(2) tr:nth-child(2) td:nth-child(2)").text.light_red
-			the_game.save = game.css("table:nth-child(2) tr:nth-child(3) td:nth-child(2)").text.yellow
-			if the_game.save != "" 
-				the_game.save = the_game.save + (" S").yellow 
-			end
-			games << the_game 
-		end 
-		games 
+	def self.all 
+		@@games 
 	end 
 
 	def self.scrape_standings
 		puts "\n AL STANDINGS"
 		puts "\n TM  W  L  WIN%  GB"
-		@doc.css("#standings-upto-AL-overall tr").each do |row|
+		@@doc.css("#standings-upto-AL-overall tr").each do |row|
 		 	title = row.css("tr:nth-child(1)").text
 		 	team = row.css("th a").text
 		 	wins = row.css("td:nth-child(2)").text.green 
@@ -43,7 +27,7 @@ class Mlb::Game
 
 		puts "\n NL STANDINGS"
 		puts "\n TM  W  L  WIN%  GB"
-		@doc.css("#standings-upto-NL-overall tr").each do |row|
+		@@doc.css("#standings-upto-NL-overall tr").each do |row|
 		 	team = row.css("th a").text
 		 	wins = row.css("td:nth-child(2)").text.green 
 		 	losses = row.css("td:nth-child(3)").text.red
@@ -53,29 +37,12 @@ class Mlb::Game
 		 end 
 	end 
 
-
-	def self.find_lopside_score
-		scores  = [] 
-		games = self.scrape_games 
-		games.each do | game | 
-		 	scores << (game.score_w.to_i - game.score_l.to_i) 
-		end 
-		puts "the biggest margin of victory today was #{scores.max} runs!".green 	
-	end
+	def difference 
+		self.score_w.to_i  - self.score_l.to_i 
+	end 
 
 	def self.find_big_win
-		games = self.scrape_games 
-		score = 0 
-		game_object = nil 
-		games.each do |game| 
-			if score < (game.score_w.to_i - game.score_l.to_i)
-				score = (game.score_w.to_i - game.score_l.to_i)
-				game_object = game
-			end 
-		end 
-		puts "the biggest margin of victory today was #{score} runs !".yellow + "\nfrom the game #{game_object.winner}: #{game_object.score_w} #{game_object.loser}: #{game_object.score_l}"
+		self.all.sort { |a, b| b.difference <=> a.difference}.first  
+	end
 
-	end 
-
-
-	end 
+end

@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby 
 
 require "bundler/setup"
-require "mlb"
+require_relative "../lib/mlb"
+
 #require './lib/mlb'
 
 Mlb::CLI.new.call 
